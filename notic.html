@@ -1,0 +1,61 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+  
+</head>  
+  
+<body>  
+
+<script>
+ /*   Notification.requestPermission(function(status) { //status值有三种：default/granted/denied
+        if (Notification.permission !== status) {
+            Notification.permission = status;
+        }
+    });
+        var options = {
+        dir: "ltr", //控制方向，据说目前浏览器还不支持
+        lang: "utf-8",
+        icon: "http://ihuster.com/static/avatar/m_default.png",
+        body: "你好呀，欢迎留言交流呀"
+    };
+    var n = new Notification("hello word!", options);*/
+
+    Notifi();
+    function Notifi() {
+        //判断浏览器是否支持notification
+        if (window.webkitNotifications) {
+            //判断当前页面是否被允许发出通知
+            if (webkitNotifications.checkPermission == 0) {
+                var icon_url = 'http://www.w3.org/';
+                var title = 'Hello HTML5';
+                var body = 'I will be always here waiting for you!';
+                var WebkitNotification = webkitNotifications.createNotification(icon_url, title, body);
+                WebkitNotification.show();
+            } else {
+                webkitNotifications.requestPermission(function(status) { //status值有三种：default/granted/denied
+                    if (Notification.permission !== status) {
+                        Notification.permission = status;
+                    }
+                });
+            }
+        } else
+        if (window.Notification) {
+            console.log(Notification.permission)
+            if (Notification.permission === 'granted') {
+                var notification = new Notification('Hello Notification', {
+                    body: "I hope that all the browser will support this\                   function!"
+                });
+            } else {
+                Notification.requestPermission(function(status) { //status值有三种：default/granted/denied
+                    if (Notification.permission !== status) {
+                        Notification.permission = status;
+                    }
+                });
+            };
+        } else alert('你的浏览器不支持此特性，请下载谷歌浏览器试用该功能');
+    }
+</script>
+</body>  
+  
+</html>  
