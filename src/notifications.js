@@ -9,6 +9,9 @@
 ;
 (function(root, factory) {
 	//amd
+	if (typeof define === 'function' && define.cmd) {
+		define(factory);
+	} else
 	if (typeof define === 'function' && define.amd) {
 		define([], factory);
 	} else if (typeof exports === 'object') { //umd
